@@ -143,6 +143,11 @@
 			
 			穿梭前使用 git log 可以查看提交历史，以便确定会退到那个版本.
 			**要重返未来，用 git reflog 查看命令历史，以便确定回到未来的那个版本.
+
+	撤销修改:
+		1.没有git add时，用git checkout -- file
+		2.已经git add时，先git reset HEAD <file>回退到1.，再按1.操作
+		3.已经git commit时，用git reset回退版本	
 			
 6-远程仓库:
 	Git是 分布式版本控制系统，同一个Git仓库可以分布到不同的机器上，
@@ -208,53 +213,3 @@
 		现在，远程库已经准备好了，下一步是用命令git clone克隆一个本地库:
 			git clone git@github.com:username/repository name.git
 		
-		
-
-
-
-			
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-	
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
