@@ -144,6 +144,117 @@
 			穿梭前使用 git log 可以查看提交历史，以便确定会退到那个版本.
 			**要重返未来，用 git reflog 查看命令历史，以便确定回到未来的那个版本.
 			
-		
-		
+6-远程仓库:
+	Git是 分布式版本控制系统，同一个Git仓库可以分布到不同的机器上，
+	有一台机器上有一个原始版本库，此后，别的机器可以"clone"这个原始版本库
+	而且每台机器的版本库其实都是一样的，并没有主次之分
 	
+	其实一台电脑上可以 clone 多个版本库，只要不在同一个目录下，
+	不过现实中这样玩没意义，硬盘挂了，会导致所有库都挂掉
+
+	实际情况往往是这样，找一台电脑充当服务器角色，每天24消失开机，
+	其他每个人都从这个"服务器"仓库克隆一份到自己的电脑上
+	并且把各自的提交推送到服务器仓库里，也从这个仓库中拉取别人的提交
+
+	注册一个 github账号，由于本地Git仓库和Github仓库之间的传输是通过SSH加密
+	所以需要设置:
+		1-如果有 id_rsa、id_rsa.pub这两个文件调到第二步
+			如果没有打开 shell(Windows下打开Git Bash)创建SHH Key:
+			$ ssh-keygen -t rsa -C "email"
+			一路回车保持默认，不是军事用途保持默认就好
+		如果一切顺利，可以在用户主目录找到.ssh目录
+		里边有id_rsa、is_rsa.hub，这两个是SSH Key密钥对
+			公钥	私钥
+			私钥不能泄露，公钥可以放心告诉别人
+		2-登陆 Github添加 公钥
+	添加远程库:
+		登陆Github，创建一个新仓库 new repository
+		填入名字，其他保持默认
+		
+		资本地仓库运行命令:
+			git remote add origin git@github.com:zhelibushidiqiu/jingjing.git
+			添加后，远程库的名字就是 origin
+		下一步，就可以把本地库的所有内容推送到远程库上:
+			git push -u origin master
+		由于远程库是空的，第一次推送master分支时，加上了 -u参数，
+		Git不但会把本地的master分支内容推送到远程的master分支，还会把本地的master分支和远程
+		的master分支关联起来，以后的推送或者拉取时就可以简化命令
+
+		从现在起，只要本地做了提交，就可以通过命令:
+			git push origin master
+			把本地master分支的最新修改推送至Github，现在
+			你就拥有了真正的分布式版本库!
+		SSH警告:
+			第一次使用Git的 clone 或者 push 命令连接 Github时，会得到一个警告
+			这是因为Git使用SSH连接，而SSH连接在第一次验证GitHub服务器的Key时，
+			需要你确认GitHub的Key的指纹信息是否真的来自GitHub的服务器，输入yes回车即可
+			Git会输出一个警告，告诉你已经把GitHub的Key添加到本机的一个信任列表里了
+		小结:
+			要关联一个远程库使用命令:
+			git remote add prigin git@github.com:username/repository name
+
+			关联后使用命令 git push -u origin master 第一次推送master分支的所有内容
+
+			此后每次提交，只要有必要，就可以使用命令:
+				git push origin master推送最新修改,
+
+			分布式版本系统的最大好处之一是在本地工作完全不需要考虑远程库的存在，
+			也就是有没有联网都可以正常工作，而SVN在没有联网的时候是拒绝干活的！
+			当有网络的时候，再把本地提交推送一下就完成了同步，真是太方便了！
+	从远程库克隆:
+		现在，假设我们从零开发，那么最好的方式是先创建远程库，然后，从远程库克隆。
+		首先，登陆GitHub，创建一个新的仓库，名字叫clam
+		
+		现在，远程库已经准备好了，下一步是用命令git clone克隆一个本地库:
+			git clone git@github.com:username/repository name.git
+		
+		
+
+
+
+			
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
